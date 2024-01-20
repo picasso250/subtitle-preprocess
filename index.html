@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>字幕文本处理</title>
+  <style>
+    body {
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      margin: 0;
+    }
+
+    #textarea-container {
+      display: flex;
+      flex: 1;
+      overflow: hidden;
+    }
+
+    #textarea1,
+    #textarea2 {
+      flex: 1;
+      resize: none;
+    }
+
+    #button-container {
+      display: flex;
+      justify-content: center;
+      margin-top: 10px;
+    }
+
+    button {
+      padding: 5px 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="textarea-container">
+    <textarea id="textarea1" rows="5" cols="50"></textarea>
+    <textarea id="textarea2" rows="5" cols="50" readonly></textarea>
+  </div>
+
+  <div id="button-container">
+    <button onclick="processText()">处理文本（变成字幕）</button>
+  </div>
+
+  <script>
+    function processText() {
+      // 获取第一个textarea的内容
+      var inputText = document.getElementById('textarea1').value;
+
+      // 处理文本：将中文句号“。”换成换行
+      var processedText = inputText.replace(/。|，/g, '\n');
+      processedText = processedText.replace(/[\u00B9\u00B2\u00B3\u2074-\u2079\u2070]/g, '');
+
+      // 将处理后的文本放入第二个textarea
+      document.getElementById('textarea2').value = processedText;
+    }
+  </script>
+
+</body>
+</html>
